@@ -8,17 +8,21 @@ class PageInicial extends React.Component {
     searchQuery: '',
     renderItems: [],
     renderData: false,
+    loading: false,
   };
 
   handleClick = async () => {
     //faz o fetch da função 'getProductsFromCategoryAndQuery':
     const { searchQuery } = this.state;
+    this.setState({
+      loading:true
+    })
     const promise = await getProductsFromCategoryAndQuery(null, searchQuery);
     const data = promise.results;
-    const infoToRender = data.length === 0 ? 'Nenhum produto foi encontrado' : data;
     this.setState({
-      renderItems: infoToRender,
+      renderItems: data,
       renderData: true,
+      loading:false,
     });
   };
 
@@ -33,7 +37,11 @@ class PageInicial extends React.Component {
   //parei na hora de renderizar os itens para a página inicial. Criei um componente ProductCard para isso.
 
   render() {
-    const { listaInicial, renderItems, renderData } = this.state;
+    const { listaInicial, renderItems, renderData, loading } = this.state;
+    const showItems = renderItems.map((item) => <div key={item.id}><img src={item.thumbnail
+    } alt={item.title} data-testid="product"/>{item.title} R${item.price}</div>)
+    const errorMessage = <h3>Nenhum produto foi encontrado</h3>
+
     return (
       <div>
         <input
@@ -53,6 +61,8 @@ class PageInicial extends React.Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h3>
         ) : null} 
+        {renderItems.length === 0 && renderData === true ? errorMessage : showItems}
+        {loading && <h4>Carregando...</h4>}
       </div>
     );
   }
