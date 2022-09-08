@@ -1,8 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class PageInicial extends React.Component {
   state = {
     listaInicial: '',
+  };
+
+  goCart = () => {
+    const { history } = this.props;
+    history.push('/shopping-cart');
   };
 
   render() {
@@ -14,10 +20,17 @@ class PageInicial extends React.Component {
           <h3 data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h3>
-        ) : null }
+        ) : null}
+        <button onClick={ this.goCart } data-testid="shopping-cart-button" type="button">
+          Carrinho de compras
+        </button>
       </div>
     );
   }
 }
+
+PageInicial.propTypes = {
+  history: PropTypes.objectOf(PropTypes.string).isRequired,
+};
 
 export default PageInicial;
