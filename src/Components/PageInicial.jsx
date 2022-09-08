@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ListaCategorias from './ListaCategorias';
 
 class PageInicial extends React.Component {
   state = {
@@ -20,7 +21,8 @@ class PageInicial extends React.Component {
           <h3 data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h3>
-        ) : null}
+        ) : null }
+        <ListaCategorias />
         <button onClick={ this.goCart } data-testid="shopping-cart-button" type="button">
           Carrinho de compras
         </button>
