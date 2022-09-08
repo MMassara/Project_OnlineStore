@@ -1,4 +1,5 @@
 import React from 'react';
+import ListaCategorias from './ListaCategorias';
 
 class PageInicial extends React.Component {
   state = {
@@ -15,6 +16,7 @@ class PageInicial extends React.Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h3>
         ) : null }
+        <ListaCategorias />
       </div>
     );
   }
