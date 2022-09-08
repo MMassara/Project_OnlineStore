@@ -1,7 +1,6 @@
 import React from 'react';
-import ListaCategorias from './ListaCategorias'
 import PropTypes from 'prop-types';
-
+import ListaCategorias from './ListaCategorias';
 
 class PageInicial extends React.Component {
   state = {
@@ -24,7 +23,6 @@ class PageInicial extends React.Component {
           </h3>
         ) : null }
         <ListaCategorias />
-        ) : null}
         <button onClick={ this.goCart } data-testid="shopping-cart-button" type="button">
           Carrinho de compras
         </button>
