@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 class ShoppingCart extends React.Component {
   state = {
@@ -10,7 +10,7 @@ class ShoppingCart extends React.Component {
   }
 
   getSelectedItem = () => {
-    const selectedProducts = JSON.parse(localStorage.getItem("produto"));
+    const selectedProducts = JSON.parse(localStorage.getItem('produto'));
     if (selectedProducts !== null) {
       this.setState({
         selectedItems: selectedProducts,
@@ -21,10 +21,12 @@ class ShoppingCart extends React.Component {
   render() {
     const { selectedItems } = this.state;
     const showSelectedItems = selectedItems.map((product) => (
-      <section key={product.title}>
-        <img src={product.thumbnail} alt={product.title} />
+      <section key={ product.title }>
+        <img src={ product.thumbnail } alt={ product.title } />
         <div data-testid="shopping-cart-product-name">
-          {product.title} {product.price}
+          {product.title}
+          {' '}
+          {product.price}
         </div>
         <span data-testid="shopping-cart-product-quantity">
           {product.quantity}
