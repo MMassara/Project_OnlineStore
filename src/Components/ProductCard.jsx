@@ -9,6 +9,13 @@ class ProductCard extends React.Component {
     }
   }
 
+  saveIdLocalStorage = () => {
+    const {
+      itemObj: { id },
+    } = this.props;
+    localStorage.setItem('detail', id);
+  };
+
   addToCart = () => {
     const {
       itemObj: { thumbnail, title, price },
@@ -24,20 +31,26 @@ class ProductCard extends React.Component {
     } = this.props;
 
     return (
-      <Link to="/productdetails" data-testid="product-detail-link">
-        <div data-testid="product">
-          <img src={ thumbnail } alt={ title } />
-          <h3>{title}</h3>
-          <h4>{price}</h4>
-        </div>
-         <button
+      <div>
+        <Link
+          to="/productdetails"
+          data-testid="product-detail-link"
+          onClick={ this.saveIdLocalStorage }
+        >
+          <div data-testid="product">
+            <img src={ thumbnail } alt={ title } />
+            <h3>{title}</h3>
+            <h4>{price}</h4>
+          </div>
+        </Link>
+        <button
           type="button"
           onClick={ this.addToCart }
           data-testid="product-add-to-cart"
         >
           Adicionar ao carrinho!
         </button>
-      </Link>
+      </div>
     );
   }
 }
@@ -47,6 +60,7 @@ ProductCard.propTypes = {
     thumbnail: PropTypes.string,
     title: PropTypes.string,
     price: PropTypes.number,
+    id: PropTypes.string,
   }).isRequired,
 };
 
