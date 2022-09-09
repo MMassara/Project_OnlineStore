@@ -1,6 +1,8 @@
 import React from 'react';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import ProductCard from './ProductCard';
+import PropTypes from 'prop-types';
+import ListaCategorias from './ListaCategorias';
 
 class PageInicial extends React.Component {
   state = {
@@ -34,6 +36,11 @@ class PageInicial extends React.Component {
 
   // parei na hora de renderizar os itens para a página inicial. Criei um componente ProductCard para isso.
 
+  goCart = () => {
+    const { history } = this.props;
+    history.push('/shopping-cart');
+  };
+
   render() {
     const { listaInicial, renderItems, loading } = this.state;
     const showItems = renderItems.map((item) => (
@@ -63,9 +70,18 @@ class PageInicial extends React.Component {
         ) : null}
         {renderItems.length === 0 ? errorMessage : showItems}
         {loading && <h4>Carregando...</h4>}
+        ) : null }
+        <ListaCategorias />
+        <button onClick={ this.goCart } data-testid="shopping-cart-button" type="button">
+          Carrinho de compras
+        </button>
       </div>
     );
   }
 }
+
+PageInicial.propTypes = {
+  history: PropTypes.objectOf(PropTypes.string).isRequired,
+};
 
 export default PageInicial;
