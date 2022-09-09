@@ -11,9 +11,11 @@ class ShoppingCart extends React.Component {
 
   getSelectedItem = () => {
     const selectedProducts = JSON.parse(localStorage.getItem('produto'));
-    this.setState({
-      selectedItems: selectedProducts,
-    });
+    if (selectedProducts !== null) {
+      this.setState({
+        selectedItems: selectedProducts,
+      });
+    }
   };
 
   render() {
