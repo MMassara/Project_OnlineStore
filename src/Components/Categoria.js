@@ -10,13 +10,15 @@ class Categoria extends Component {
     };
   }
 
-  handleCheck = () => {
+  handleCheck = (event) => {
+    const { onClick } = this.props;
     const { categoriaChecked } = this.state;
     if (categoriaChecked) {
       this.setState({ categoriaChecked: false });
     } else {
       this.setState({ categoriaChecked: true });
     }
+    onClick(event);
   };
 
   render() {
@@ -26,16 +28,17 @@ class Categoria extends Component {
     return (
       <div id={ categoryKey }>
         {' '}
-        <label htmlFor={ categoryKey } style={ labelStyle } data-testid="category" id={ categoryKey } >
+        <label htmlFor={ categoryKey } style={ labelStyle } id={ categoryKey }>
           {name}
           {' '}
           <input
             type="radio"
-            name={ `${name} checkbox` }
+            name="checkbox"
             id={ categoryKey }
             checked={ categoriaChecked }
-            onClick={ this.props.onClick }
+            // onClick={ this.props.onClick }
             onChange={ this.handleCheck }
+            data-testid="category"
           />
         </label>
       </div>
@@ -55,6 +58,8 @@ Categoria.propTypes = {
     margin: string,
     padding: string,
   }).isRequired,
+  onClick: PropTypes.func.isRequired,
+  categoryKey: PropTypes.string.isRequired,
 };
 
 export default Categoria;

@@ -15,11 +15,11 @@ class PageInicial extends React.Component {
 
   handleClick = async () => {
     // faz o fetch da função 'getProductsFromCategoryAndQuery':
-    const { searchQuery, categories } = this.state;
+    const { searchQuery, category } = this.state;
     this.setState({
       loading: true,
     });
-    const promise = await getProductsFromCategoryAndQuery(categories, searchQuery);
+    const promise = await getProductsFromCategoryAndQuery(category, searchQuery);
     const data = promise.results;
     this.setState({
       renderItems: data,
@@ -35,29 +35,12 @@ class PageInicial extends React.Component {
     });
   };
 
-  componentDidMount() {
-
-  }
-
   selectCategory = ({ target }) => {
     // salva estado
     const newItem = target.id;
-    const { category, searchQuery } = this.state;
-    // if (categories.includes(newItem)) {
-    //   const newArr = categories.filter((category) => category !== newItem);
-    //   this.setState({
-    //     categories: newArr,
-    //   }, () => this.callApi());
-    // } else {
-    //   this.setState({
-    //     categories: [...categories, newItem],
-    //   }, () => this.callApi());
-    // }
-
     this.setState({
       category: newItem,
-    }, () => this.callApi())
-    
+    }, () => this.callApi());
   };
 
   callApi = async () => {
@@ -67,7 +50,7 @@ class PageInicial extends React.Component {
     this.setState({
       renderItems: data,
     });
-  }
+  };
 
   goCart = () => {
     const { history } = this.props;

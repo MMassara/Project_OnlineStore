@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Loading from './Loading';
 import { getCategories } from '../services/api';
 import Categoria from './Categoria';
@@ -27,6 +28,7 @@ class ListaCategorias extends Component {
 
   render() {
     const { categorias, loading } = this.state;
+    const { selectCategory } = this.props;
     const labelStyle = {
       display: 'flex',
       flexDirection: 'row',
@@ -47,7 +49,12 @@ class ListaCategorias extends Component {
           ) : (
             categorias.map((categoria) => (
               <li key={ categoria.id }>
-                <Categoria name={ categoria.name } labelStyle={ labelStyle } onClick={ this.props.selectCategory } categoryKey={ categoria.id } />
+                <Categoria
+                  name={ categoria.name }
+                  labelStyle={ labelStyle }
+                  onClick={ selectCategory }
+                  categoryKey={ categoria.id }
+                />
               </li>
             ))
           )}
@@ -56,5 +63,9 @@ class ListaCategorias extends Component {
     );
   }
 }
+
+ListaCategorias.propTypes = {
+  selectCategory: PropTypes.func.isRequired,
+};
 
 export default ListaCategorias;
