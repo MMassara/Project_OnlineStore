@@ -19,7 +19,6 @@ class ListaCategorias extends Component {
 
   handleCategories = async () => {
     const data = await getCategories();
-    console.log(data);
     this.setState({
       categorias: [...data],
       loading: false,
@@ -48,7 +47,7 @@ class ListaCategorias extends Component {
           ) : (
             categorias.map((categoria) => (
               <li key={ categoria.id }>
-                <Categoria name={ categoria.name } labelStyle={ labelStyle } />
+                <Categoria name={ categoria.name } labelStyle={ labelStyle } onClick={ this.props.selectCategory } categoryKey={ categoria.id } />
               </li>
             ))
           )}

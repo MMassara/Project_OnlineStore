@@ -20,26 +20,25 @@ class Categoria extends Component {
   };
 
   render() {
-    const { name, labelStyle } = this.props;
+    const { name, labelStyle, categoryKey } = this.props;
     const { categoriaChecked } = this.state;
 
     return (
-      <>
+      <div id={ categoryKey }>
         {' '}
-        <label htmlFor={ `${name} checkbox` } style={ labelStyle } data-testid="category">
-          <p>
-            {name}
-            {' '}
-          </p>
+        <label htmlFor={ categoryKey } style={ labelStyle } data-testid="category" id={ categoryKey } >
+          {name}
+          {' '}
           <input
-            type="checkbox"
+            type="radio"
             name={ `${name} checkbox` }
-            id={ `${name} checkbox` }
+            id={ categoryKey }
             checked={ categoriaChecked }
+            onClick={ this.props.onClick }
             onChange={ this.handleCheck }
           />
         </label>
-      </>
+      </div>
     );
   }
 }
