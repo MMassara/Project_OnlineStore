@@ -7,52 +7,52 @@ class PageInicial extends React.Component {
     listaInicial: '',
     searchQuery: '',
     renderItems: [],
-    renderData: false,
     loading: false,
   };
 
   handleClick = async () => {
-    //faz o fetch da função 'getProductsFromCategoryAndQuery':
+    // faz o fetch da função 'getProductsFromCategoryAndQuery':
     const { searchQuery } = this.state;
     this.setState({
-      loading:true
-    })
+      loading: true,
+    });
     const promise = await getProductsFromCategoryAndQuery(null, searchQuery);
     const data = promise.results;
     this.setState({
       renderItems: data,
-      renderData: true,
-      loading:false,
+      loading: false,
     });
   };
 
   handleChange = ({ target }) => {
-    //salva no estado o input de pesquisa do usuário do usuário
+    // salva no estado o input de pesquisa do usuário do usuário
     const { value } = target;
     this.setState({
       searchQuery: value,
     });
   };
 
-  //parei na hora de renderizar os itens para a página inicial. Criei um componente ProductCard para isso.
+  // parei na hora de renderizar os itens para a página inicial. Criei um componente ProductCard para isso.
 
   render() {
-    const { listaInicial, renderItems, renderData, loading } = this.state;
-    const showItems = renderItems.map((item) => <div key={item.id}><img src={item.thumbnail
-    } alt={item.title} data-testid="product"/>{item.title} R${item.price}</div>)
-    const errorMessage = <h3>Nenhum produto foi encontrado</h3>
+    const { listaInicial, renderItems, loading } = this.state;
+    const showItems = renderItems.map((item) => (
+      <div key={ item.id }>
+        <ProductCard itemObj={ item } />
+      </div>));
+    const errorMessage = <h3>Nenhum produto foi encontrado</h3>;
 
     return (
       <div>
         <input
           type="text"
           data-testid="query-input"
-          onChange={this.handleChange}
+          onChange={ this.handleChange }
         />
         <button
           type="button"
           data-testid="query-button"
-          onClick={this.handleClick}
+          onClick={ this.handleClick }
         >
           Pesquisar
         </button>
@@ -60,8 +60,8 @@ class PageInicial extends React.Component {
           <h3 data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h3>
-        ) : null} 
-        {renderItems.length === 0 && renderData === true ? errorMessage : showItems}
+        ) : null}
+        {renderItems.length === 0 ? errorMessage : showItems}
         {loading && <h4>Carregando...</h4>}
       </div>
     );
