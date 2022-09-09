@@ -18,7 +18,7 @@ ProductCard.propTypes = {
   itemObj: PropTypes.shape({
     thumbnail: PropTypes.string,
     title: PropTypes.string,
-    price: PropTypes.string,
+    price: PropTypes.number,
   }).isRequired,
 };
 
