@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
   componentDidMount() {
@@ -23,18 +24,20 @@ class ProductCard extends React.Component {
     } = this.props;
 
     return (
-      <>
-        <img src={ thumbnail } alt={ title } data-testid="product" />
-        <h3>{title}</h3>
-        <h4>{price}</h4>
-        <button
+      <Link to="/productdetails" data-testid="product-detail-link">
+        <div data-testid="product">
+          <img src={ thumbnail } alt={ title } />
+          <h3>{title}</h3>
+          <h4>{price}</h4>
+        </div>
+         <button
           type="button"
           onClick={ this.addToCart }
           data-testid="product-add-to-cart"
         >
           Adicionar ao carrinho!
         </button>
-      </>
+      </Link>
     );
   }
 }
