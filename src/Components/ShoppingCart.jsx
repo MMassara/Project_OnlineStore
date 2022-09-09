@@ -1,4 +1,5 @@
 import React from 'react';
+import ShoppingCartItem from './ShoppingCartItem';
 
 class ShoppingCart extends React.Component {
   state = {
@@ -18,19 +19,20 @@ class ShoppingCart extends React.Component {
     }
   };
 
+  removeItem = ({ target }) => {
+    const selectedProducts = JSON.parse(localStorage.getItem('produto'));
+    const newArr = selectedProducts.filter((product) => product.title !== target.id);
+    localStorage.setItem('produto', JSON.stringify(newArr));
+    this.setState({
+      selectedItems: newArr,
+    });
+  };
+
   render() {
     const { selectedItems } = this.state;
     const showSelectedItems = selectedItems.map((product) => (
       <section key={ product.title }>
-        <img src={ product.thumbnail } alt={ product.title } />
-        <div data-testid="shopping-cart-product-name">
-          {product.title}
-          {' '}
-          {product.price}
-        </div>
-        <span data-testid="shopping-cart-product-quantity">
-          {product.quantity}
-        </span>
+        <ShoppingCartItem item={ product } rmItem={ this.removeItem } />
       </section>
     ));
     return (
