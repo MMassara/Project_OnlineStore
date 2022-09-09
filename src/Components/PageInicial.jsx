@@ -10,15 +10,16 @@ class PageInicial extends React.Component {
     searchQuery: '',
     renderItems: [],
     loading: false,
+    category: '',
   };
 
   handleClick = async () => {
     // faz o fetch da função 'getProductsFromCategoryAndQuery':
-    const { searchQuery } = this.state;
+    const { searchQuery, category } = this.state;
     this.setState({
       loading: true,
     });
-    const promise = await getProductsFromCategoryAndQuery(null, searchQuery);
+    const promise = await getProductsFromCategoryAndQuery(category, searchQuery);
     const data = promise.results;
     this.setState({
       renderItems: data,
@@ -31,6 +32,23 @@ class PageInicial extends React.Component {
     const { value } = target;
     this.setState({
       searchQuery: value,
+    });
+  };
+
+  selectCategory = ({ target }) => {
+    // salva estado
+    const newItem = target.id;
+    this.setState({
+      category: newItem,
+    }, () => this.callApi());
+  };
+
+  callApi = async () => {
+    const { category, searchQuery } = this.state;
+    const promise = await getProductsFromCategoryAndQuery(category, searchQuery);
+    const data = promise.results;
+    this.setState({
+      renderItems: data,
     });
   };
 
@@ -68,7 +86,7 @@ class PageInicial extends React.Component {
         ) : null}
         {renderItems.length === 0 ? errorMessage : showItems}
         {loading && <h4>Carregando...</h4>}
-        <ListaCategorias />
+        <ListaCategorias selectCategory={ this.selectCategory } />
         <button onClick={ this.goCart } data-testid="shopping-cart-button" type="button">
           Carrinho de compras
         </button>
