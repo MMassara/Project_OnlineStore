@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import ProductCard from './ProductCard';
-import PropTypes from 'prop-types';
 import ListaCategorias from './ListaCategorias';
 
 class PageInicial extends React.Component {
@@ -33,8 +33,6 @@ class PageInicial extends React.Component {
       searchQuery: value,
     });
   };
-
-  // parei na hora de renderizar os itens para a página inicial. Criei um componente ProductCard para isso.
 
   goCart = () => {
     const { history } = this.props;
@@ -70,7 +68,6 @@ class PageInicial extends React.Component {
         ) : null}
         {renderItems.length === 0 ? errorMessage : showItems}
         {loading && <h4>Carregando...</h4>}
-        ) : null }
         <ListaCategorias />
         <button onClick={ this.goCart } data-testid="shopping-cart-button" type="button">
           Carrinho de compras
