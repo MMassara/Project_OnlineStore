@@ -44,12 +44,14 @@
 button {
   background-color: transparent;
   border: none;
-  outline: none;
   cursor: pointer;
+  outline: none;
 }
+
 .on {
-  color: #000;
+  color: black;
 }
+
 .off {
-  color: #ccc;
+  color: rgba(204, 204, 204, 0.959);
 }
