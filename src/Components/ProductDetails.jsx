@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getProductById } from '../services/api';
+import Review from './Review';
 
 class ProductDetails extends React.Component {
   state = {
@@ -37,6 +38,7 @@ class ProductDetails extends React.Component {
 
   render() {
     const { detailProduct } = this.state;
+    console.log(detailProduct);
 
     return (
       <div>
@@ -70,6 +72,7 @@ class ProductDetails extends React.Component {
             </button>
           </div>
         ))}
+        {detailProduct.length > 0 && <Review productId={ detailProduct[0].id } />}
       </div>
     );
   }
