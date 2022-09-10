@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class StarRating extends React.Component {
   //   const [rating, setRating] = useState(0);
@@ -25,7 +26,7 @@ class StarRating extends React.Component {
           index += 1;
           return (
             <button
-            data-testid="${index}-rating"
+              data-testid={ `${index}-rating` }
               type="button"
               key={ index }
               className={ index <= (hover || rating) ? 'on' : 'off' }
@@ -41,5 +42,12 @@ class StarRating extends React.Component {
     );
   }
 }
+
+StarRating.propTypes = {
+  hover: PropTypes.number,
+  rating: PropTypes.number,
+  handleRating: PropTypes.func,
+  handleHover: PropTypes.func,
+}.isRequired;
 
 export default StarRating;
