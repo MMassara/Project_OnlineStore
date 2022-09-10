@@ -9,6 +9,9 @@ class ProductDetails extends React.Component {
 
   async componentDidMount() {
     await this.getProductStorage();
+    if (localStorage.getItem('produto') === null) {
+      localStorage.setItem('produto', JSON.stringify([]));
+    }
   }
 
   goCart = () => {
@@ -22,6 +25,14 @@ class ProductDetails extends React.Component {
     this.setState({
       detailProduct: [selectedProduct],
     });
+  };
+
+  handleClick = () => {
+    const { detailProduct } = this.state;
+    const { price, title, thumbnail } = detailProduct[0];
+    const allItems = JSON.parse(localStorage.getItem('produto'));
+    allItems.push({ price, title, thumbnail });
+    localStorage.setItem('produto', JSON.stringify(allItems));
   };
 
   render() {
@@ -48,8 +59,15 @@ class ProductDetails extends React.Component {
               />
             </div>
             <div>
-              <h3 data-testid="product-detail-price">{ `${element.price}` }</h3>
+              <h3 data-testid="product-detail-price">{`${element.price}`}</h3>
             </div>
+            <button
+              type="button"
+              onClick={ this.handleClick }
+              data-testid="product-detail-add-to-cart"
+            >
+              Adicionar ao Carrinho
+            </button>
           </div>
         ))}
       </div>
