@@ -40,3 +40,18 @@
     transform: rotate(360deg);
   }
 }
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.on {
+  color: black;
+}
+
+.off {
+  color: rgba(204, 204, 204, 0.959);
+}
