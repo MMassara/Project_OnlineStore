@@ -19,10 +19,11 @@ class ProductCard extends React.Component {
   addToCart = () => {
     const {
       itemObj: { thumbnail, title, price },
-    } = this.props;
+      showCart } = this.props;
     const allItems = JSON.parse(localStorage.getItem('produto'));
     allItems.push({ price, title, thumbnail, quantity: 1 });
     localStorage.setItem('produto', JSON.stringify(allItems));
+    showCart();
   };
 
   render() {
@@ -66,6 +67,7 @@ ProductCard.propTypes = {
       free_shipping: PropTypes.bool,
     }),
   }).isRequired,
+  showCart: PropTypes.func.isRequired,
 };
 
 export default ProductCard;
