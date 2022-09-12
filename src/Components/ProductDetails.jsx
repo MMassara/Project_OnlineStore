@@ -62,6 +62,7 @@ class ProductDetails extends React.Component {
             </div>
             <div>
               <h3 data-testid="product-detail-price">{`${element.price}`}</h3>
+              { element.shipping.free_shipping && <h4>Frete Grátis!</h4>}
             </div>
             <button
               type="button"
