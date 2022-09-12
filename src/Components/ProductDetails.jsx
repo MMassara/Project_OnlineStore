@@ -42,8 +42,11 @@ class ProductDetails extends React.Component {
   handleClick = () => {
     const { detailProduct } = this.state;
     const { price, title, thumbnail } = detailProduct[0];
+    const availableQuantity = detailProduct[0].available_quantity;
+    console.log(availableQuantity);
     const allItems = JSON.parse(localStorage.getItem('produto'));
-    allItems.push({ price, title, thumbnail });
+    console.log(allItems);
+    allItems.push({ price, title, thumbnail, availableQuantity });
     localStorage.setItem('produto', JSON.stringify(allItems));
     this.showItemsCart();
   };

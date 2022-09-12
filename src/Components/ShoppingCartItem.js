@@ -8,14 +8,16 @@ class ShoppingCartItem extends React.Component {
 
   handleClick = ({ target }) => {
     const { itemQuantity } = this.state;
-    if (itemQuantity === 1 && target.id === 'decrease') {
-      return;
-    }
-    if (target.id === 'decrease') {
+    const { item: { availableQuantity } } = this.props;
+    // console.log(availableQuantity);
+    // if (itemQuantity === 1 && target.id === 'decrease') {
+    //   return;
+    // }
+    if (target.id === 'decrease' && itemQuantity >= 2) {
       this.setState((prevState) => ({
         itemQuantity: prevState.itemQuantity - 1,
       }));
-    } else {
+    } else if (target.id === 'increase' && itemQuantity < availableQuantity) {
       this.setState((prevState) => ({
         itemQuantity: prevState.itemQuantity + 1,
       }));
@@ -28,6 +30,7 @@ class ShoppingCartItem extends React.Component {
       rmItem,
     } = this.props;
     const { itemQuantity } = this.state;
+    // const enoughStock = itemQuantity < availableQuantity;
     return (
       <>
         <img src={ thumbnail } alt={ title } />
@@ -50,6 +53,7 @@ class ShoppingCartItem extends React.Component {
           onClick={ this.handleClick }
           id="increase"
           data-testid="product-increase-quantity"
+          // disabled={ !enoughStock }
         >
           +
         </button>
@@ -72,6 +76,7 @@ ShoppingCartItem.propTypes = {
     thumbnail: PropTypes.string,
     title: PropTypes.string,
     price: PropTypes.number,
+    availableQuantity: PropTypes.number,
   }).isRequired,
   rmItem: PropTypes.func.isRequired,
 };

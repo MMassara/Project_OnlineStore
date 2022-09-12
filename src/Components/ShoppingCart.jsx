@@ -31,6 +31,7 @@ class ShoppingCart extends React.Component {
 
   render() {
     const { selectedItems } = this.state;
+    // console.log(selectedItems[0]);
     const showSelectedItems = selectedItems.map((product) => (
       <section key={ product.title }>
         <ShoppingCartItem item={ product } rmItem={ this.removeItem } />
