@@ -6,6 +6,7 @@ import Review from './Review';
 class ProductDetails extends React.Component {
   state = {
     detailProduct: [],
+    itemsInCart: [],
   };
 
   async componentDidMount() {
@@ -13,7 +14,17 @@ class ProductDetails extends React.Component {
     if (localStorage.getItem('produto') === null) {
       localStorage.setItem('produto', JSON.stringify([]));
     }
+    this.showItemsCart();
   }
+
+  showItemsCart = () => {
+    const itemsCart = JSON.parse(localStorage.getItem('produto'));
+    if (itemsCart !== null) {
+      this.setState({
+        itemsInCart: itemsCart.length,
+      });
+    }
+  };
 
   goCart = () => {
     const { history } = this.props;
@@ -34,11 +45,11 @@ class ProductDetails extends React.Component {
     const allItems = JSON.parse(localStorage.getItem('produto'));
     allItems.push({ price, title, thumbnail });
     localStorage.setItem('produto', JSON.stringify(allItems));
+    this.showItemsCart();
   };
 
   render() {
-    const { detailProduct } = this.state;
-    console.log(detailProduct);
+    const { detailProduct, itemsInCart } = this.state;
 
     return (
       <div>
@@ -47,7 +58,9 @@ class ProductDetails extends React.Component {
           data-testid="shopping-cart-button"
           onClick={ this.goCart }
         >
-          Carrinho
+          Carrinho(
+          <span data-testid="shopping-cart-size">{itemsInCart}</span>
+          )
         </button>
 
         {detailProduct.map((element) => (

@@ -11,6 +11,20 @@ class PageInicial extends React.Component {
     renderItems: [],
     loading: false,
     category: '',
+    itemsInCart: [],
+  };
+
+  componentDidMount() {
+    this.showItemsCart();
+  }
+
+  showItemsCart = () => {
+    const itemsCart = JSON.parse(localStorage.getItem('produto'));
+    if (itemsCart !== null) {
+      this.setState({
+        itemsInCart: itemsCart.length,
+      });
+    }
   };
 
   handleClick = async () => {
@@ -19,7 +33,10 @@ class PageInicial extends React.Component {
     this.setState({
       loading: true,
     });
-    const promise = await getProductsFromCategoryAndQuery(category, searchQuery);
+    const promise = await getProductsFromCategoryAndQuery(
+      category,
+      searchQuery,
+    );
     const data = promise.results;
     this.setState({
       renderItems: data,
@@ -38,14 +55,20 @@ class PageInicial extends React.Component {
   selectCategory = ({ target }) => {
     // salva estado
     const newItem = target.id;
-    this.setState({
-      category: newItem,
-    }, () => this.callApi());
+    this.setState(
+      {
+        category: newItem,
+      },
+      () => this.callApi(),
+    );
   };
 
   callApi = async () => {
     const { category, searchQuery } = this.state;
-    const promise = await getProductsFromCategoryAndQuery(category, searchQuery);
+    const promise = await getProductsFromCategoryAndQuery(
+      category,
+      searchQuery,
+    );
     const data = promise.results;
     this.setState({
       renderItems: data,
@@ -58,11 +81,12 @@ class PageInicial extends React.Component {
   };
 
   render() {
-    const { listaInicial, renderItems, loading } = this.state;
+    const { listaInicial, renderItems, loading, itemsInCart } = this.state;
     const showItems = renderItems.map((item) => (
       <div key={ item.id }>
-        <ProductCard itemObj={ item } />
-      </div>));
+        <ProductCard itemObj={ item } showCart={ this.showItemsCart } />
+      </div>
+    ));
     const errorMessage = <h3>Nenhum produto foi encontrado</h3>;
 
     return (
@@ -87,8 +111,14 @@ class PageInicial extends React.Component {
         {renderItems.length === 0 ? errorMessage : showItems}
         {loading && <h4>Carregando...</h4>}
         <ListaCategorias selectCategory={ this.selectCategory } />
-        <button onClick={ this.goCart } data-testid="shopping-cart-button" type="button">
-          Carrinho de compras
+        <button
+          onClick={ this.goCart }
+          data-testid="shopping-cart-button"
+          type="button"
+        >
+          Carrinho de compras(
+          <span data-testid="shopping-cart-size">{itemsInCart}</span>
+          )
         </button>
       </div>
     );
