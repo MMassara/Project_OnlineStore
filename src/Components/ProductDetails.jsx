@@ -41,21 +41,26 @@ class ProductDetails extends React.Component {
 
   handleClick = () => {
     const { detailProduct } = this.state;
-    const { price, title, thumbnail } = detailProduct[0];
-    const availableQuantity = detailProduct[0].available_quantity;
-    console.log(availableQuantity);
+    // console.log(detailProduct);
+    // console.log(availableQuantity);
     const allItems = JSON.parse(localStorage.getItem('produto'));
     console.log(allItems);
-    allItems.push({ price, title, thumbnail, availableQuantity });
+    allItems.push(detailProduct[0]);
     localStorage.setItem('produto', JSON.stringify(allItems));
     this.showItemsCart();
   };
 
   render() {
     const { detailProduct, itemsInCart } = this.state;
+    const reviewStyle = {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    };
 
     return (
-      <div>
+      <div style={ { border: 'solid black 4px', margin: '5px' } }>
         <button
           type="button"
           data-testid="shopping-cart-button"
@@ -68,17 +73,18 @@ class ProductDetails extends React.Component {
 
         {detailProduct.map((element) => (
           <div key={ `${element.id}` }>
-            <div>
+            <div style={ reviewStyle }>
               <h3 data-testid="product-detail-name">{`${element.title}`}</h3>
               <img
                 src={ `${element.thumbnail}` }
                 alt={ `${element.title}` }
                 data-testid="product-detail-image"
+                style={ { height: '150px', width: '150px' } }
               />
             </div>
             <div>
               <h3 data-testid="product-detail-price">{`${element.price}`}</h3>
-              { element.shipping.free_shipping && <h4>Frete Grátis!</h4>}
+              {element.shipping.free_shipping && <h4>Frete Grátis!</h4>}
             </div>
             <button
               type="button"

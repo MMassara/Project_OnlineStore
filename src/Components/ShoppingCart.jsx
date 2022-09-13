@@ -39,6 +39,7 @@ class ShoppingCart extends React.Component {
     ));
     return (
       <div>
+        <h2>Carrinho de Compras: </h2>
         {selectedItems.length === 0 ? (
           <h3 data-testid="shopping-cart-empty-message">
             Seu carrinho está vazio

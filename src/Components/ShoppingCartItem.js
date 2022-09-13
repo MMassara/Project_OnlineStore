@@ -8,11 +8,15 @@ class ShoppingCartItem extends React.Component {
 
   handleClick = ({ target }) => {
     const { itemQuantity } = this.state;
-    const { item: { availableQuantity } } = this.props;
+    const {
+      item,
+    } = this.props;
     // console.log(availableQuantity);
+    // console.log(this.props);
     // if (itemQuantity === 1 && target.id === 'decrease') {
     //   return;
     // }
+    const availableQuantity = item.available_quantity;
     if (target.id === 'decrease' && itemQuantity >= 2) {
       this.setState((prevState) => ({
         itemQuantity: prevState.itemQuantity - 1,
@@ -32,7 +36,7 @@ class ShoppingCartItem extends React.Component {
     const { itemQuantity } = this.state;
     // const enoughStock = itemQuantity < availableQuantity;
     return (
-      <>
+      <div style={ { border: 'solid black 4px', margin: '6px', width: '50%' } }>
         <img src={ thumbnail } alt={ title } />
         <div data-testid="shopping-cart-product-name">
           {title}
@@ -66,7 +70,7 @@ class ShoppingCartItem extends React.Component {
         >
           Remover
         </button>
-      </>
+      </div>
     );
   }
 }
@@ -76,7 +80,7 @@ ShoppingCartItem.propTypes = {
     thumbnail: PropTypes.string,
     title: PropTypes.string,
     price: PropTypes.number,
-    availableQuantity: PropTypes.number,
+    available_quantity: PropTypes.number,
   }).isRequired,
   rmItem: PropTypes.func.isRequired,
 };
