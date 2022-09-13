@@ -31,6 +31,7 @@ class ShoppingCart extends React.Component {
 
   render() {
     const { selectedItems } = this.state;
+    // console.log(selectedItems[0]);
     const showSelectedItems = selectedItems.map((product) => (
       <section key={ product.title }>
         <ShoppingCartItem item={ product } rmItem={ this.removeItem } />
@@ -38,6 +39,7 @@ class ShoppingCart extends React.Component {
     ));
     return (
       <div>
+        <h2>Carrinho de Compras: </h2>
         {selectedItems.length === 0 ? (
           <h3 data-testid="shopping-cart-empty-message">
             Seu carrinho está vazio

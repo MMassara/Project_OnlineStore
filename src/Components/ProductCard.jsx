@@ -17,34 +17,54 @@ class ProductCard extends React.Component {
   };
 
   addToCart = () => {
-    const {
-      itemObj: { thumbnail, title, price },
-      showCart } = this.props;
+    const { itemObj, showCart } = this.props;
+    // const availableQuantity = itemObj.available_quantity;
+    // console.log(available_quantity);
     const allItems = JSON.parse(localStorage.getItem('produto'));
-    allItems.push({ price, title, thumbnail, quantity: 1 });
+    allItems.push(itemObj);
     localStorage.setItem('produto', JSON.stringify(allItems));
     showCart();
   };
 
   render() {
     const {
-      itemObj: { thumbnail, title, price, shipping: { free_shipping: freeShipping } },
+      itemObj: {
+        thumbnail,
+        title,
+        price,
+        shipping: { free_shipping: freeShipping },
+      },
     } = this.props;
 
+    const productCardStyle = {
+      border: 'solid black 5px',
+      margin: '5px',
+      padding: '5px',
+      height: '296px',
+    };
+
     return (
-      <div>
+      <div style={ productCardStyle }>
         <Link
           to="/productdetails"
           data-testid="product-detail-link"
           onClick={ this.saveIdLocalStorage }
+          style={ { fontSize: '12px' } }
         >
-          <div data-testid="product">
-            <img src={ thumbnail } alt={ title } />
+          <div
+            data-testid="product"
+            style={ { display: 'flex', flexDirection: 'column' } }
+          >
+            <img
+              src={ thumbnail }
+              alt={ title }
+              style={ { alignSelf: 'center', height: '30%' } }
+            />
             <h3>{title}</h3>
             <h4>{price}</h4>
           </div>
         </Link>
-        { freeShipping && <h3 data-testid="free-shipping">Frete Grátis</h3> }
+        {freeShipping && <h3 data-testid="free-shipping">Frete Grátis</h3>}
         <button
           type="button"
           onClick={ this.addToCart }

@@ -85,14 +85,14 @@ class Review extends Component {
     const { hover, validRating, postReviews, review } = this.state;
     const { consumerEmail, validEmail, consumerRating } = this.state;
     const ableButton = validEmail && validRating;
-
     return (
-      <div>
+      <div style={ { margin: '5px', border: 'solid black 4px' } }>
         {!ableButton && <p data-testid="error-msg">Campos inválidos</p>}
         <form onSubmit={ () => e.target.reset() }>
-          <div>
+          <div style={ { display: 'flex', padding: '5px' } }>
             <label htmlFor="email">
               Email:
+              {' '}
               <input
                 data-testid="product-detail-email"
                 type="email"
@@ -109,12 +109,12 @@ class Review extends Component {
               hover={ hover }
             />
           </div>
-          <label htmlFor="comment">
+          <label htmlFor="comment" style={ { margin: '5px' } }>
             <textarea
               data-testid="product-detail-evaluation"
               name="comment"
               id="comment"
-              cols="30"
+              cols="150"
               rows="10"
               value={ review }
               onChange={ (e) => {

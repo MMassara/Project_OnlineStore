@@ -38,12 +38,20 @@ class ListaCategorias extends Component {
       border: 'solid black 3px',
       margin: '5px',
       padding: '5px',
+      height: '38px',
+    };
+
+    const unorderedListStyle = {
+      listStyle: 'none',
+      display: 'flex',
+      flexWrap: 'wrap',
+      fontSize: '16px',
     };
     return (
-      <div>
+      <div style={ { fontSize: '22px' } }>
         Categorias:
         {' '}
-        <ul>
+        <ul style={ unorderedListStyle }>
           {loading ? (
             <Loading />
           ) : (

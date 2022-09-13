@@ -83,33 +83,58 @@ class PageInicial extends React.Component {
   render() {
     const { listaInicial, renderItems, loading, itemsInCart } = this.state;
     const showItems = renderItems.map((item) => (
-      <div key={ item.id }>
+      <div key={ item.id } style={ { width: '28%' } }>
         <ProductCard itemObj={ item } showCart={ this.showItemsCart } />
       </div>
     ));
     const errorMessage = <h3>Nenhum produto foi encontrado</h3>;
 
+    const pageInicialStyle = {
+      display: 'flex',
+      flexDirection: 'column',
+    };
+
+    const searchInput = {
+      alignSelf: 'center',
+      fontSize: '24px',
+      margin: '6px',
+      border: 'solid black 5px',
+      padding: '8px',
+      width: '90%',
+      textAlign: 'center',
+    };
+
     return (
-      <div>
-        <input
-          type="text"
-          data-testid="query-input"
-          onChange={ this.handleChange }
-        />
+      <div style={ pageInicialStyle }>
+        <label htmlFor="search" style={ searchInput }>
+          Pesquisar:
+          {' '}
+          <input
+            id="search"
+            name="search"
+            type="text"
+            data-testid="query-input"
+            onChange={ this.handleChange }
+          />
+        </label>
         <button
           type="button"
           data-testid="query-button"
           onClick={ this.handleClick }
+          style={ { width: '90px', alignSelf: 'center', fontSize: '16px' } }
         >
-          Pesquisar
+          {' '}
+          Procurar
         </button>
         {listaInicial.length === 0 ? (
           <h3 data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h3>
         ) : null}
-        {renderItems.length === 0 ? errorMessage : showItems}
-        {loading && <h4>Carregando...</h4>}
+        <div style={ { display: 'flex', flexWrap: 'wrap', justifyContent: 'center' } }>
+          {renderItems.length === 0 ? errorMessage : showItems}
+          {loading && <h4>Carregando...</h4>}
+        </div>
         <ListaCategorias selectCategory={ this.selectCategory } />
         <button
           onClick={ this.goCart }

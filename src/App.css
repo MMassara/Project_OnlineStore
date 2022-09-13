@@ -41,7 +41,7 @@
   }
 }
 
-button {
+.on, .off {
   background-color: transparent;
   border: none;
   cursor: pointer;
