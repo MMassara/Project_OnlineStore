@@ -20,6 +20,7 @@ class ListaCategorias extends Component {
 
   handleCategories = async () => {
     const data = await getCategories();
+    console.log(data)
     this.setState({
       categorias: [...data],
       loading: false,
@@ -29,44 +30,26 @@ class ListaCategorias extends Component {
   render() {
     const { categorias, loading } = this.state;
     const { selectCategory } = this.props;
-    const labelStyle = {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignContent: 'center',
-      width: '200px',
-      border: 'solid black 3px',
-      margin: '5px',
-      padding: '5px',
-      height: '38px',
-    };
-
-    const unorderedListStyle = {
-      listStyle: 'none',
-      display: 'flex',
-      flexWrap: 'wrap',
-      fontSize: '16px',
-    };
+    
     return (
-      <div style={ { fontSize: '22px' } }>
-        Categorias:
+      <div className='allCategory'>
+        <h4 id='text-category'>Categorias:</h4>
         {' '}
-        <ul style={ unorderedListStyle }>
+        <div className='categoryArea'>
           {loading ? (
             <Loading />
           ) : (
             categorias.map((categoria) => (
-              <li key={ categoria.id }>
+              <div key={ categoria.id }>
                 <Categoria
                   name={ categoria.name }
-                  labelStyle={ labelStyle }
                   onClick={ selectCategory }
                   categoryKey={ categoria.id }
                 />
-              </li>
+              </div>
             ))
           )}
-        </ul>
+        </div>
       </div>
     );
   }

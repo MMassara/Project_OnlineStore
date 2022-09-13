@@ -2,20 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class StarRating extends React.Component {
-  //   const [rating, setRating] = useState(0);
-  //   const [hover, setHover] = useState(0);
-
-  //   handleRating = (stars) => {
-  //     this.setState({
-  //         rating: stars,
-  //     })
-  //   };
-
-  //   handleHover = (stars) => {
-  //     this.setState({
-  //         hover: stars,
-  //     })
-  //   }
 
   render() {
     const magicNumber = 5;

@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { getProductsFromCategoryAndQuery } from '../services/api';
-import ProductCard from './ProductCard';
-import ListaCategorias from './ListaCategorias';
+import React from "react";
+import PropTypes from "prop-types";
+import { getProductsFromCategoryAndQuery } from "../services/api";
+import ProductCard from "./ProductCard";
+import ListaCategorias from "./ListaCategorias";
 
 class PageInicial extends React.Component {
   state = {
-    listaInicial: '',
-    searchQuery: '',
+    listaInicial: "",
+    searchQuery: "",
     renderItems: [],
     loading: false,
-    category: '',
+    category: "",
     itemsInCart: [],
   };
 
@@ -19,7 +19,7 @@ class PageInicial extends React.Component {
   }
 
   showItemsCart = () => {
-    const itemsCart = JSON.parse(localStorage.getItem('produto'));
+    const itemsCart = JSON.parse(localStorage.getItem("produto"));
     if (itemsCart !== null) {
       this.setState({
         itemsInCart: itemsCart.length,
@@ -35,7 +35,7 @@ class PageInicial extends React.Component {
     });
     const promise = await getProductsFromCategoryAndQuery(
       category,
-      searchQuery,
+      searchQuery
     );
     const data = promise.results;
     this.setState({
@@ -59,7 +59,7 @@ class PageInicial extends React.Component {
       {
         category: newItem,
       },
-      () => this.callApi(),
+      () => this.callApi()
     );
   };
 
@@ -67,7 +67,7 @@ class PageInicial extends React.Component {
     const { category, searchQuery } = this.state;
     const promise = await getProductsFromCategoryAndQuery(
       category,
-      searchQuery,
+      searchQuery
     );
     const data = promise.results;
     this.setState({
@@ -77,74 +77,58 @@ class PageInicial extends React.Component {
 
   goCart = () => {
     const { history } = this.props;
-    history.push('/shopping-cart');
+    history.push("/shopping-cart");
   };
 
   render() {
     const { listaInicial, renderItems, loading, itemsInCart } = this.state;
     const showItems = renderItems.map((item) => (
-      <div key={ item.id } style={ { width: '28%' } }>
-        <ProductCard itemObj={ item } showCart={ this.showItemsCart } />
+      <div key={item.id}>
+        <ProductCard itemObj={item} showCart={this.showItemsCart} />
       </div>
     ));
-    const errorMessage = <h3>Nenhum produto foi encontrado</h3>;
-
-    const pageInicialStyle = {
-      display: 'flex',
-      flexDirection: 'column',
-    };
-
-    const searchInput = {
-      alignSelf: 'center',
-      fontSize: '24px',
-      margin: '6px',
-      border: 'solid black 5px',
-      padding: '8px',
-      width: '90%',
-      textAlign: 'center',
-    };
+    const errorMessage = <h3 className="initialMessage">Nenhum produto foi encontrado</h3>;
 
     return (
-      <div style={ pageInicialStyle }>
-        <label htmlFor="search" style={ searchInput }>
-          Pesquisar:
-          {' '}
-          <input
-            id="search"
-            name="search"
-            type="text"
-            data-testid="query-input"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <button
-          type="button"
-          data-testid="query-button"
-          onClick={ this.handleClick }
-          style={ { width: '90px', alignSelf: 'center', fontSize: '16px' } }
-        >
-          {' '}
-          Procurar
-        </button>
+      <div>
+        <div className="searchingArea">
+          <div>
+            <input
+              id="search"
+              name="search"
+              type="text"
+              data-testid="query-input"
+              onChange={this.handleChange}
+              className='inputSearch'
+            />
+            <button
+              type="button"
+              data-testid="query-button"
+              onClick={this.handleClick}
+            >
+              {" "}
+              Procurar
+            </button>
+          </div>
+          <button
+            onClick={this.goCart}
+            data-testid="shopping-cart-button"
+            type="button"
+          >
+            Carrinho de compras(
+            <span data-testid="shopping-cart-size">{itemsInCart}</span>)
+          </button>
+        </div>
         {listaInicial.length === 0 ? (
-          <h3 data-testid="home-initial-message">
+          <h3 data-testid="home-initial-message" className="initialMessage">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h3>
         ) : null}
-        <div style={ { display: 'flex', flexWrap: 'wrap', justifyContent: 'center' } }>
+        <div className="cartArea">
           {renderItems.length === 0 ? errorMessage : showItems}
           {loading && <h4>Carregando...</h4>}
         </div>
-        <ListaCategorias selectCategory={ this.selectCategory } />
-        <button
-          onClick={ this.goCart }
-          data-testid="shopping-cart-button"
-          type="button"
-        >
-          Carrinho de compras(
-          <span data-testid="shopping-cart-size">{itemsInCart}</span>
-          )
-        </button>
+        <ListaCategorias selectCategory={this.selectCategory} />
       </div>
     );
   }

@@ -26,8 +26,9 @@ class Categoria extends Component {
     const { categoriaChecked } = this.state;
 
     return (
-      <div id={ categoryKey }>
+      <div id={ categoryKey } className='categorySection'>
         {' '}
+        <section className='eachCategory'>
         <label htmlFor={ categoryKey } style={ labelStyle } id={ categoryKey }>
           {name}
           {' '}
@@ -36,11 +37,11 @@ class Categoria extends Component {
             name="checkbox"
             id={ categoryKey }
             checked={ categoriaChecked }
-            // onClick={ this.props.onClick }
             onChange={ this.handleCheck }
             data-testid="category"
           />
         </label>
+        </section>
       </div>
     );
   }

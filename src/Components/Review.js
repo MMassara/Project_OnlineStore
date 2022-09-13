@@ -89,7 +89,7 @@ class Review extends Component {
       <div style={ { margin: '5px', border: 'solid black 4px' } }>
         {!ableButton && <p data-testid="error-msg">Campos inválidos</p>}
         <form onSubmit={ () => e.target.reset() }>
-          <div style={ { display: 'flex', padding: '5px' } }>
+          <div>
             <label htmlFor="email">
               Email:
               {' '}
@@ -109,7 +109,7 @@ class Review extends Component {
               hover={ hover }
             />
           </div>
-          <label htmlFor="comment" style={ { margin: '5px' } }>
+          <label htmlFor="comment">
             <textarea
               data-testid="product-detail-evaluation"
               name="comment"

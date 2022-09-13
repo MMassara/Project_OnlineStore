@@ -36,7 +36,7 @@ class ShoppingCartItem extends React.Component {
     const { itemQuantity } = this.state;
     // const enoughStock = itemQuantity < availableQuantity;
     return (
-      <div style={ { border: 'solid black 4px', margin: '6px', width: '50%' } }>
+      <div>
         <img src={ thumbnail } alt={ title } />
         <div data-testid="shopping-cart-product-name">
           {title}

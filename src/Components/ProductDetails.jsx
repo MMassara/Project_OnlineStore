@@ -60,7 +60,7 @@ class ProductDetails extends React.Component {
     };
 
     return (
-      <div style={ { border: 'solid black 4px', margin: '5px' } }>
+      <div>
         <button
           type="button"
           data-testid="shopping-cart-button"
@@ -73,13 +73,12 @@ class ProductDetails extends React.Component {
 
         {detailProduct.map((element) => (
           <div key={ `${element.id}` }>
-            <div style={ reviewStyle }>
+            <div>
               <h3 data-testid="product-detail-name">{`${element.title}`}</h3>
               <img
                 src={ `${element.thumbnail}` }
                 alt={ `${element.title}` }
                 data-testid="product-detail-image"
-                style={ { height: '150px', width: '150px' } }
               />
             </div>
             <div>
