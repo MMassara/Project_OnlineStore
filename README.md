@@ -3,3 +3,5 @@
   As habilidades desenvolvidas ao longo do projeto foram: Desenvolver orientado a Métodos Ágeis, trabalhando em equipe por meio do Kanban; Fazer requisições e consumir de API externa; Utilziar ciclos de vida de componentes React, criação de rotas e links para navegação na aplicação; Aplicação de renderização condicional.
   
    Para rodar o projeto em sua máquina, digite no terminal do diretório do projeto o comando npm install. Após instalar as dependências, digite no terminal npm start.
+   
+   Estou aberto à quaisquer dicas e feedbacks!
